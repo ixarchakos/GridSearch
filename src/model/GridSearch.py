@@ -17,4 +17,4 @@ class GridSearch:
     def check_param_compatibility(self):
         print self.algorithm
         if False:
-            print 'Incompatible parameters'
+            print 'Incompatible grid parameters'
