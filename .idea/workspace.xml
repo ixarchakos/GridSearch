@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d5edcbe-f054-4865-b31c-740a085febf6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="GridSearch.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,8 +25,8 @@
       <file leaf-file-name="GridSearch.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/model/GridSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+            <state relative-caret-position="342">
+              <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -50,10 +49,10 @@
       <list>
         <option value="$PROJECT_DIR$/src/score_functions/roc.py" />
         <option value="$PROJECT_DIR$/src/model/.init.py" />
-        <option value="$PROJECT_DIR$/src/model/GridSearch.py" />
         <option value="$PROJECT_DIR$/src/plots/stability.py" />
         <option value="$PROJECT_DIR$/src/tools/general_tools.py" />
         <option value="$PROJECT_DIR$/src/score_functions/pr_auc.py" />
+        <option value="$PROJECT_DIR$/src/model/GridSearch.py" />
       </list>
     </option>
   </component>
@@ -277,6 +276,21 @@
       <option name="presentableId" value="Default" />
       <updated>1487451010561</updated>
     </task>
+    <task id="LOCAL-00001" summary="change print message">
+      <created>1487453796140</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1487453796140</updated>
+    </task>
+    <task id="LOCAL-00002" summary="change print message">
+      <created>1487453928255</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1487453928255</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -312,6 +326,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="change print message" />
+    <option name="LAST_COMMIT_MESSAGE" value="change print message" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -368,8 +386,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/GridSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+        <state relative-caret-position="342">
+          <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
           <folding />
         </state>
       </provider>
