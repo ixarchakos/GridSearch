@@ -1,4 +1,6 @@
+from src.tools.general_tools import calculate_metrics, sample_data_set
 import itertools
+import time
 
 
 class GridSearch:
@@ -18,20 +20,36 @@ class GridSearch:
     def fit(self, x, y, thres):
         values_list, key_list = self.parameters_to_grid(thres)
 
+        unchecked = True
         # iterate per model
+        num_iterations = len(list(itertools.product(*values_list)))*self.n_times*self.k_folds
         for tuples in list(itertools.product(*values_list)):
             # extract model parameters and cut off boundary
             parameters_dict, cut_off_boundary = self.extract_models_parameters(tuples, key_list)
-
-            # check param compatibility with the selected model
-            self.check_param_compatibility(self.algorithm.set_params(**parameters_dict))
 
             # n-times
             for i in range(0, self.n_times, 1):
                 # k-fold
                 for j in range(0, self.k_folds, 1):
-
-                    print self.algorithm.set_params(**parameters_dict)
+                    # split data set in train and test set
+                    x_train, y_train, x_test, y_test = sample_data_set(x, y, self.shuffle, self.k_folds)
+                    if unchecked:
+                        start = time.time()
+                        x_train, y_train, x_test, y_test = sample_data_set(x, y, self.shuffle, self.k_folds)
+                        # check param compatibility with the selected model
+                        self.check_param_compatibility(self.algorithm, parameters_dict, x_train, y_train)
+                        end = time.time()
+                        print "Number of models: " + str(num_iterations)
+                        print "The procedure needs approximate " + str(((end-start)*num_iterations)/60) + " minutes"
+                        unchecked = False
+                    # fit model
+                    clf = self.algorithm.set_params(**parameters_dict).fit(x_train, y_train)
+                    print "test size " + str(len(y_test))
+                    # predict
+                    predicted_labels = [0 if r[0] > cut_off_boundary else 1 for r in clf.predict_proba(x_test)]
+                    print "predict size " + str(len(predicted_labels))
+                    # calculate results
+                    calculate_metrics(y_test, predicted_labels, self.score_function)
 
     def parameters_to_grid(self, thres):
         values_list, key_list = list(), list()
@@ -46,16 +64,15 @@ class GridSearch:
     def extract_models_parameters(tuples, key_list):
         parameters_dict = dict()
         for i, t in enumerate(tuples):
-            parameters_dict[key_list[i]] = str(t)
+            parameters_dict[key_list[i]] = t
         cut_off_boundary = parameters_dict['threshold']
         del parameters_dict['threshold']
         return parameters_dict, cut_off_boundary
 
     @staticmethod
-    def check_param_compatibility(algorithm):
+    def check_param_compatibility(algorithm, parameters_dict, x_train, y_train):
         try:
-            algorithm
+            algorithm.set_params(**parameters_dict).fit(x_train, y_train)
         except Exception as e:
-            print e
-            print 'Incompatible grid parameters'
+            print ("Error Message: " + e.message)
             exit()
