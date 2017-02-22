@@ -1,4 +1,4 @@
-from src.tools.general_tools import calculate_metrics, sample_data_set
+from src.tools.general_tools import calculate_metrics, random_sample_data_set
 import itertools
 import time
 
@@ -20,7 +20,8 @@ class GridSearch:
     def fit(self, x, y, thres):
         values_list, key_list = self.parameters_to_grid(thres)
 
-        unchecked = True
+        # must be true
+        unchecked = False
         # iterate per model
         num_iterations = len(list(itertools.product(*values_list)))*self.n_times*self.k_folds
         for tuples in list(itertools.product(*values_list)):
@@ -32,10 +33,10 @@ class GridSearch:
                 # k-fold
                 for j in range(0, self.k_folds, 1):
                     # split data set in train and test set
-                    x_train, y_train, x_test, y_test = sample_data_set(x, y, self.shuffle, self.k_folds)
+                    x_train, y_train, x_test, y_test = random_sample_data_set(x, y, self.k_folds)
                     if unchecked:
                         start = time.time()
-                        x_train, y_train, x_test, y_test = sample_data_set(x, y, self.shuffle, self.k_folds)
+                        x_train, y_train, x_test, y_test = random_sample_data_set(x, y, self.k_folds)
                         # check param compatibility with the selected model
                         self.check_param_compatibility(self.algorithm, parameters_dict, x_train, y_train)
                         end = time.time()

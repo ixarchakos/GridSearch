@@ -13,5 +13,5 @@ df.__delitem__('job_id')
 x = df.values[:, :-1]
 y = df.values[:, -1]
 
-grid = GridSearch(RandomForestClassifier(), param_grid, 1, 1, 5)
+grid = GridSearch(RandomForestClassifier(), param_grid, 'pr_auc', 1, 5)
 print grid.fit(x, y, [i / 100.0 for i in range(60, 80, 1)])

@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d5edcbe-f054-4865-b31c-740a085febf6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/score_functions/score.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/score_functions/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/score_functions/pr_auc.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/score_functions/roc.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/score_functions/score.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/GridSearch.py" afterPath="$PROJECT_DIR$/src/model/GridSearch.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tests/test.py" afterPath="$PROJECT_DIR$/src/tests/test.py" />
@@ -29,10 +32,10 @@
       <file leaf-file-name="GridSearch.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/GridSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="51" column="83" selection-start-line="51" selection-start-column="83" selection-end-line="51" selection-end-column="83" />
+            <state relative-caret-position="684">
+              <caret line="38" column="88" selection-start-line="38" selection-start-column="88" selection-end-line="38" selection-end-column="88" />
               <folding>
-                <element signature="e#0#70#0" expanded="true" />
+                <element signature="e#0#77#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -41,9 +44,11 @@
       <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tests/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="43" selection-start-line="0" selection-start-column="43" selection-end-line="0" selection-end-column="43" />
-              <folding />
+            <state relative-caret-position="270">
+              <caret line="15" column="63" selection-start-line="15" selection-start-column="63" selection-end-line="15" selection-end-column="63" />
+              <folding>
+                <element signature="e#0#43#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -51,21 +56,11 @@
       <file leaf-file-name="general_tools.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/tools/general_tools.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+            <state relative-caret-position="487">
+              <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="score.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/score_functions/score.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -92,9 +87,9 @@
         <option value="$PROJECT_DIR$/src/model/__init__.py" />
         <option value="$PROJECT_DIR$/src/tools/calculate_metrics.py" />
         <option value="$PROJECT_DIR$/src/tests/test.py" />
-        <option value="$PROJECT_DIR$/src/tools/general_tools.py" />
         <option value="$PROJECT_DIR$/src/model/GridSearch.py" />
         <option value="$PROJECT_DIR$/src/score_functions/score.py" />
+        <option value="$PROJECT_DIR$/src/tools/general_tools.py" />
       </list>
     </option>
   </component>
@@ -177,24 +172,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="tools" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GridSearch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GridSearch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="score_functions" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -431,14 +408,21 @@
       <option name="project" value="LOCAL" />
       <updated>1487762385673</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="[DEV] add sampling method&#10;[DEV] predict model&#10;[DEV] calculate metrics">
+      <created>1487779839074</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1487779839074</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="57" y="21" width="1863" height="1059" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24918567" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24918567" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Regex Tester" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -472,7 +456,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="change print message" />
     <MESSAGE value="[DEV] split the functionality of Grid fit in functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="[DEV] split the functionality of Grid fit in functions" />
+    <MESSAGE value="[DEV] add sampling method&#10;[DEV] predict model&#10;[DEV] calculate metrics" />
+    <option name="LAST_COMMIT_MESSAGE" value="[DEV] add sampling method&#10;[DEV] predict model&#10;[DEV] calculate metrics" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -484,7 +469,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#70#0" expanded="true" />
+            <element signature="e#0#77#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -493,7 +478,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -502,7 +489,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#70#0" expanded="true" />
+            <element signature="e#0#77#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -602,36 +589,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="43" selection-start-line="0" selection-start-column="43" selection-end-line="0" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/score_functions/score.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/GridSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="51" column="83" selection-start-line="51" selection-start-column="83" selection-end-line="51" selection-end-column="83" />
+        <state relative-caret-position="684">
+          <caret line="38" column="88" selection-start-line="38" selection-start-column="88" selection-end-line="38" selection-end-column="88" />
           <folding>
-            <element signature="e#0#70#0" expanded="true" />
+            <element signature="e#0#77#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="63" selection-start-line="15" selection-start-column="63" selection-end-line="15" selection-end-column="63" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tools/general_tools.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        <state relative-caret-position="487">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
