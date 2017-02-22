@@ -19,11 +19,11 @@ class GridSearch:
 
     def fit(self, x, y, thres):
         values_list, key_list = self.parameters_to_grid(thres)
-
         # must be true
         unchecked = False
+        # number of models
+        num_of_models = len(list(itertools.product(*values_list)))*self.n_times*self.k_folds
         # iterate per model
-        num_iterations = len(list(itertools.product(*values_list)))*self.n_times*self.k_folds
         for tuples in list(itertools.product(*values_list)):
             # extract model parameters and cut off boundary
             parameters_dict, cut_off_boundary = self.extract_models_parameters(tuples, key_list)
@@ -35,22 +35,23 @@ class GridSearch:
                     # split data set in train and test set
                     x_train, y_train, x_test, y_test = random_sample_data_set(x, y, self.k_folds)
                     if unchecked:
-                        start = time.time()
-                        x_train, y_train, x_test, y_test = random_sample_data_set(x, y, self.k_folds)
-                        # check param compatibility with the selected model
-                        self.check_param_compatibility(self.algorithm, parameters_dict, x_train, y_train)
-                        end = time.time()
-                        print "Number of models: " + str(num_iterations)
-                        print "The procedure needs approximate " + str(((end-start)*num_iterations)/60) + " minutes"
-                        unchecked = False
+                        unchecked = self.calculate_grid_time(x, y, num_of_models, parameters_dict)
                     # fit model
                     clf = self.algorithm.set_params(**parameters_dict).fit(x_train, y_train)
-                    print "test size " + str(len(y_test))
                     # predict
                     predicted_labels = [0 if r[0] > cut_off_boundary else 1 for r in clf.predict_proba(x_test)]
-                    print "predict size " + str(len(predicted_labels))
                     # calculate results
                     calculate_metrics(y_test, predicted_labels, self.score_function)
+
+    def calculate_grid_time(self, x, y, num_of_models, parameters_dict):
+        start = time.time()
+        x_train, y_train, x_test, y_test = random_sample_data_set(x, y, self.k_folds)
+        # check param compatibility with the selected model
+        self.check_param_compatibility(self.algorithm, parameters_dict, x_train, y_train)
+        end = time.time()
+        print "Number of models: " + str(num_of_models)
+        print "The procedure needs approximate " + str(((end - start) * num_of_models) / 60) + " minutes"
+        return False
 
     def parameters_to_grid(self, thres):
         values_list, key_list = list(), list()
