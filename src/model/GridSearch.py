@@ -1,12 +1,16 @@
-from src.tools.general_tools import calculate_metrics, random_sample_data_set
+from src.tools.general_tools import write_to_file
+from src.tools.metrics import calculate_metrics
+from src.tools.sampling import random_sample_data_set
+from src.model.ModelTuningResults import ModelTuningResults
 import itertools
 import time
+from collections import OrderedDict
 
 
 class GridSearch:
 
     def __init__(self, algorithm, param_grid, score_function,
-                 n_times=5, k_folds=10, n_top=50, n_jobs=1, shuffle=True):
+                 n_times=5, k_folds=10, n_top=50, shuffle=True):
 
         self.algorithm = algorithm
         self.param_grid = param_grid
@@ -14,20 +18,23 @@ class GridSearch:
         self.n_times = n_times
         self.k_folds = k_folds
         self.shuffle = shuffle
-        self.n_jobs = n_jobs
         self.n_top = n_top
+        self.best_model_dict = OrderedDict()
 
     def fit(self, x, y, thres):
         values_list, key_list = self.parameters_to_grid(thres)
         # must be true
-        unchecked = False
+        unchecked = True
         # number of models
-        num_of_models = len(list(itertools.product(*values_list)))*self.n_times*self.k_folds
+        num_of_models = len(list(itertools.product(*values_list)))
         # iterate per model
+        model_id = 1
+
         for tuples in list(itertools.product(*values_list)):
             # extract model parameters and cut off boundary
             parameters_dict, cut_off_boundary = self.extract_models_parameters(tuples, key_list)
-
+            model = ModelTuningResults(model_id, parameters_dict, cut_off_boundary, self.n_times, self.k_folds)
+            model_id += 1
             # n-times
             for i in range(0, self.n_times, 1):
                 # k-fold
@@ -41,7 +48,24 @@ class GridSearch:
                     # predict
                     predicted_labels = [0 if r[0] > cut_off_boundary else 1 for r in clf.predict_proba(x_test)]
                     # calculate results
-                    calculate_metrics(y_test, predicted_labels, self.score_function)
+                    model.add_results(calculate_metrics(y_test, predicted_labels, self.score_function))
+            self.calculate_best_models(model)
+        write_to_file(self.best_model_dict)
+
+    def calculate_best_models(self, new_model):
+        self.best_model_dict[new_model.get_model_id()] = [new_model.calculate_model_score(), new_model]
+        temp = list()
+        if len(self.best_model_dict) != 0:
+            temp = sorted(self.best_model_dict.items(), key=lambda x: x[1], reverse=True)
+        self.best_model_dict.clear()
+        for result in temp:
+            self.best_model_dict[result[0]] = result[1]
+
+        print '*'*100
+        print self.best_model_dict
+        if len(self.best_model_dict) > self.n_top:
+            self.best_model_dict.popitem()
+        print '*' * 100
 
     def calculate_grid_time(self, x, y, num_of_models, parameters_dict):
         start = time.time()
@@ -50,7 +74,7 @@ class GridSearch:
         self.check_param_compatibility(self.algorithm, parameters_dict, x_train, y_train)
         end = time.time()
         print "Number of models: " + str(num_of_models)
-        print "The procedure needs approximate " + str(((end - start) * num_of_models) / 60) + " minutes"
+        print "The procedure needs approximate " + str(((end - start) * num_of_models*self.n_times*self.k_folds) / 60) + " minutes"
         return False
 
     def parameters_to_grid(self, thres):
