@@ -54,18 +54,12 @@ class GridSearch:
 
     def calculate_best_models(self, new_model):
         self.best_model_dict[new_model.get_model_id()] = [new_model.calculate_model_score(), new_model]
-        temp = list()
-        if len(self.best_model_dict) != 0:
-            temp = sorted(self.best_model_dict.items(), key=lambda x: x[1], reverse=True)
+        temp = sorted(self.best_model_dict.items(), key=lambda x: x[1], reverse=True)
         self.best_model_dict.clear()
         for result in temp:
             self.best_model_dict[result[0]] = result[1]
-
-        print '*'*100
-        print self.best_model_dict
         if len(self.best_model_dict) > self.n_top:
             self.best_model_dict.popitem()
-        print '*' * 100
 
     def calculate_grid_time(self, x, y, num_of_models, parameters_dict):
         start = time.time()

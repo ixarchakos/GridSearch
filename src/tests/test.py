@@ -7,7 +7,7 @@ param_grid = {
               "n_estimators": [i for i in range(200, 601, 150)],
               "max_features": [i for i in range(2, 3, 1)],
               "criterion": ["gini", "entropy"],
-              "n_jobs": 3
+              "n_jobs": [3]
               }
 
 df = pd.read_csv('feature_matrix_train.csv', sep=',', header=0)
