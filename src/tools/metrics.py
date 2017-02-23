@@ -1,24 +1,57 @@
 from sklearn import metrics
-from sklearn.metrics import precision_recall_curve
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 
-def calculate_metrics(y_test, predicted, score_function):
-    # print "-" * 40
-    # print '\tAccuracy: ', metrics.accuracy_score(y_test, predicted)
-    # print '\tPrecision: ' + str(metrics.precision_score(y_test, predicted, average=None)[0])
-    # print '\tRecall: ' + str(metrics.recall_score(y_test, predicted, average=None)[0])
-    # print '\tF1: ' + str(metrics.f1_score(y_test, predicted, average=None)[0])
-    # cm = metrics.confusion_matrix(y_test, predicted)
-    # print '\t========================'
-    # print '\tTP: {0}\t FN: {1}\n\tTN: {2} \tFP: {3}\t'.format(cm[1][1], cm[1][0], cm[0][0], cm[0][1])
-    # print "-" * 40
-    return {
-        'score': metrics.precision_score(y_test, predicted, average=None)[0],
-        'recall': metrics.recall_score(y_test, predicted, average=None)[0]
-        }
-    # score(y_test, predicted, score_function)
+def calculate_metrics(y_test, predicted, predicted_probabilities, score_function, evaluation_class):
+    metrics_results = dict()
+    metrics_results['score'] = score(y_test, predicted, score_function, evaluation_class)
+    metrics_results['accuracy'] = metrics.accuracy_score(y_test, predicted)
+
+    # precision
+    metrics_results['avg_precision'] = metrics.precision_score(y_test, predicted, average='macro')
+    for i, value in enumerate(metrics.precision_score(y_test, predicted, average=None)):
+        metrics_results['precision_in_class_'+str(i)] = value
+
+    # recall
+    metrics_results['avg_recall'] = metrics.recall_score(y_test, predicted, average='macro')
+    for i, value in enumerate(metrics.recall_score(y_test, predicted, average=None)):
+        metrics_results['recall_in_class_'+str(i)] = value
+
+    # f1
+    metrics_results['avg_f1'] = metrics.f1_score(y_test, predicted, average='macro')
+    for i, value in enumerate(metrics.f1_score(y_test, predicted, average=None)):
+        metrics_results['f1_in_class_'+str(i)] = value
+
+    # log-loss
+    metrics_results['log_loss'] = metrics.log_loss(y_test, predicted_probabilities)
+
+    # confusion matrix
+    cm = metrics.confusion_matrix(y_test, predicted)
+    metrics_results['true_positives'] = cm[1][1]
+    metrics_results['false_negatives'] = cm[1][0]
+    metrics_results['true_negatives'] = cm[0][0]
+    metrics_results['false_positives'] = cm[0][1]
+
+    return metrics_results
 
 
-def score(y_test, predicted_labels, score_function):
-    print precision_recall_curve(y_test, predicted_labels)
-    exit()
+def score(y_test, predicted, score_function, evaluation_class):
+    final_score = -1
+    if score_function == 'pr_auc':
+        # it is not right
+        final_score = metrics.precision_recall_curve(y_test, predicted)
+        print final_score
+        exit()
+    elif score_function == 'precision':
+        if evaluation_class is None:
+            final_score = metrics.precision_score(y_test, predicted, average='macro')
+        else:
+            final_score = metrics.precision_score(y_test, predicted, average=None)[0]
+    elif score_function == 'f1':
+        if evaluation_class is None:
+            final_score = metrics.f1_score(y_test, predicted, average='macro')
+        else:
+            final_score = metrics.f1_score(y_test, predicted, average=None)[0]
+
+    return final_score

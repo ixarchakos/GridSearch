@@ -21,4 +21,4 @@ class ModelTuningResults:
         return self.model_id
 
     def get_params(self):
-        return self.get_params()
+        return self.parameters

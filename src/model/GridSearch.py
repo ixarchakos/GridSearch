@@ -10,7 +10,7 @@ from collections import OrderedDict
 class GridSearch:
 
     def __init__(self, algorithm, param_grid, score_function,
-                 n_times=5, k_folds=10, n_top=50, shuffle=True):
+                 n_times=5, k_folds=10, n_top=50, shuffle=True, evaluation_class=None):
 
         self.algorithm = algorithm
         self.param_grid = param_grid
@@ -20,6 +20,7 @@ class GridSearch:
         self.shuffle = shuffle
         self.n_top = n_top
         self.best_model_dict = OrderedDict()
+        self.evaluation_class = evaluation_class
 
     def fit(self, x, y, thres):
         values_list, key_list = self.parameters_to_grid(thres)
@@ -46,11 +47,13 @@ class GridSearch:
                     # fit model
                     clf = self.algorithm.set_params(**parameters_dict).fit(x_train, y_train)
                     # predict
-                    predicted_labels = [0 if r[0] > cut_off_boundary else 1 for r in clf.predict_proba(x_test)]
+                    predicted_probabilities = clf.predict_proba(x_test)
+                    predicted_labels = [0 if r[0] > cut_off_boundary else 1 for r in predicted_probabilities]
                     # calculate results
-                    model.add_results(calculate_metrics(y_test, predicted_labels, self.score_function))
+                    model.add_results(calculate_metrics(y_test, predicted_labels, predicted_probabilities,
+                                                        self.score_function, self.evaluation_class))
             self.calculate_best_models(model)
-        write_to_file(self.best_model_dict)
+        write_to_file(self.best_model_dict, cut_off_boundary)
 
     def calculate_best_models(self, new_model):
         self.best_model_dict[new_model.get_model_id()] = [new_model.calculate_model_score(), new_model]
@@ -67,7 +70,7 @@ class GridSearch:
         # check param compatibility with the selected model
         self.check_param_compatibility(self.algorithm, parameters_dict, x_train, y_train)
         end = time.time()
-        print "Number of models: " + str(num_of_models)
+        print "Number of different models: " + str(num_of_models)
         print "The procedure needs approximate " + str(((end - start) * num_of_models*self.n_times*self.k_folds) / 60) + " minutes"
         return False
 
