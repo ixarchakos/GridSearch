@@ -30,7 +30,7 @@ class GridSearch:
         num_of_models = len(list(itertools.product(*values_list)))
         # iterate per model
         model_id = 1
-
+        cut_off_boundary = 0
         for tuples in list(itertools.product(*values_list)):
             # extract model parameters and cut off boundary
             parameters_dict, cut_off_boundary = self.extract_models_parameters(tuples, key_list)
