@@ -71,7 +71,7 @@ class GridSearch:
         self.check_param_compatibility(self.algorithm, parameters_dict, x_train, y_train)
         end = time.time()
         print "Number of different models: " + str(num_of_models)
-        print "The procedure needs approximate " + str(((end - start) * num_of_models*self.n_times*self.k_folds) / 60) + " minutes"
+        print "The procedure needs " + str(((end - start) * num_of_models*self.n_times*self.k_folds) / 60) + " minutes"
         return False
 
     def parameters_to_grid(self, thres):
