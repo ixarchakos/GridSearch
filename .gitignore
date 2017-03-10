@@ -1,6 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-*.pyc
 *$py.class
-.idea/workspace.xml
+tests/feature_matrix_train.csv
+.idea/
