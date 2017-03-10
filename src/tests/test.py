@@ -9,13 +9,12 @@ param_grid = {
               "criterion": ["gini", "entropy"],
               "n_jobs": [3]
               }
+threshold = [i / 100.0 for i in range(78, 80, 1)]
 
 df = pd.read_csv('feature_matrix_train.csv', sep=',', header=0)
 df.__delitem__('job_id')
 x = df.values[:4000, :-1]
 y = df.values[:4000, -1]
 
-grid = GridSearch(RandomForestClassifier(), param_grid, 'f1',
-                  n_times=1, k_folds=2, n_top=6, shuffle=True)
-
-grid.fit(x, y, [i / 100.0 for i in range(78, 80, 1)])
+grid = GridSearch(RandomForestClassifier(), param_grid, 'f1', n_times=1, k_folds=2, n_top=6, shuffle=True)
+grid.fit(x, y, threshold)
