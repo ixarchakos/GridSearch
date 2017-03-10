@@ -1,6 +1,6 @@
 from src.tools.general_tools import write_to_file
 from src.tools.metrics import calculate_metrics
-from src.tools.sampling import random_sample_data_set
+from src.tools.sampling import random_sample_data_set, k_fold_sample_data_set
 from src.model.ModelTuningResults import ModelTuningResults
 import itertools
 import time
@@ -10,14 +10,14 @@ from collections import OrderedDict
 class GridSearch:
 
     def __init__(self, algorithm, param_grid, score_function,
-                 n_times=5, k_folds=10, n_top=50, shuffle=True, evaluation_class=None):
+                 n_times=5, k_folds=10, n_top=50, bootstrap=True, evaluation_class=None):
 
         self.algorithm = algorithm
         self.param_grid = param_grid
         self.score_function = score_function
         self.n_times = n_times
         self.k_folds = k_folds
-        self.shuffle = shuffle
+        self.bootstrap = bootstrap
         self.n_top = n_top
         self.best_model_dict = OrderedDict()
         self.evaluation_class = evaluation_class
@@ -31,6 +31,7 @@ class GridSearch:
         # iterate per model
         model_id = 1
         cut_off_boundary = 0
+        x_train_list, y_train_list, x_test_list, y_test_list = list(), list(), list(), list()
         for tuples in list(itertools.product(*values_list)):
             # extract model parameters and cut off boundary
             parameters_dict, cut_off_boundary = self.extract_models_parameters(tuples, key_list)
@@ -38,10 +39,18 @@ class GridSearch:
             model_id += 1
             # n-times
             for i in range(0, self.n_times, 1):
+                if not self.bootstrap:
+                    x_train_list, y_train_list, x_test_list, y_test_list = k_fold_sample_data_set(x, y, self.k_folds)
                 # k-fold
                 for j in range(0, self.k_folds, 1):
                     # split data set in train and test set
-                    x_train, y_train, x_test, y_test = random_sample_data_set(x, y, self.k_folds)
+                    if self.bootstrap:
+                        x_train, y_train, x_test, y_test = random_sample_data_set(x, y, self.k_folds)
+                    else:
+                        x_train = x_train_list[j]
+                        y_train = y_train_list[j]
+                        x_test = x_test_list[j]
+                        y_test = y_test_list[j]
                     if unchecked:
                         unchecked = self.calculate_grid_time(x, y, num_of_models, parameters_dict)
                     # fit model
