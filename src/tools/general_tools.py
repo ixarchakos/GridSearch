@@ -8,14 +8,15 @@ def write_to_file(best_model_dict, cut_off_boundary):
         index = 1
         for k, v in best_model_dict.iteritems():
             w.write('Model with rank: {0} \n'.format(index))
-            index += 1
             w.write('Scores according to selected criterion: {0} \n'.format(str(v[0])))
             w.write('With parameters: {0} \n'.format(v[1].get_params()))
             w.write('And cut off boundary: {0} \n'.format(cut_off_boundary))
-            w.write(('*' * 30) + '\n')
-            w.write('------ Classification Report ------ \n')
-            # TODO
+            w.write('\n------ Classification Report ------ \n')
+            for key, value in v[1].calculate_averages_per_metric().iteritems():
+                w.write('Metric {0} - Value: {1} \n'.format(key, str(value)))
+            w.write('------ End of Classification Report ------\n\n')
             w.write(('-' * 50) + '\n')
+            index += 1
 
 
 def get_file_path(path_from_module, file_name):

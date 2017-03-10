@@ -14,3 +14,9 @@ def random_sample_data_set(x, y, folds):
     y_test = [item[-1] for item in data[:(x.shape[0] / folds)]]
 
     return x_train, y_train, x_test, y_test
+
+
+def k_fold_sample_data_set(x, y, folds):
+    # k-fold grid search
+    # TODO
+    print "ok"

@@ -1,11 +1,12 @@
 from sklearn import metrics
+from collections import OrderedDict
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 
 def calculate_metrics(y_test, predicted, predicted_probabilities, score_function, evaluation_class):
-    metrics_results = dict()
-    metrics_results['score'] = score(y_test, predicted, score_function, evaluation_class)
+    metrics_results = OrderedDict()
+    metrics_results['score'] = score(y_test, predicted, score_function, predicted_probabilities, evaluation_class)
     metrics_results['accuracy'] = metrics.accuracy_score(y_test, predicted)
 
     # precision
@@ -36,7 +37,7 @@ def calculate_metrics(y_test, predicted, predicted_probabilities, score_function
     return metrics_results
 
 
-def score(y_test, predicted, score_function, evaluation_class):
+def score(y_test, predicted, score_function, predicted_probabilities, evaluation_class):
     final_score = -1
     if score_function == 'pr_auc':
         # it is not right
@@ -47,11 +48,18 @@ def score(y_test, predicted, score_function, evaluation_class):
         if evaluation_class is None:
             final_score = metrics.precision_score(y_test, predicted, average='macro')
         else:
-            final_score = metrics.precision_score(y_test, predicted, average=None)[0]
+            final_score = metrics.precision_score(y_test, predicted, average=None)[evaluation_class]
+    elif score_function == 'recall':
+        if evaluation_class is None:
+            final_score = metrics.recall_score(y_test, predicted, average='macro')
+        else:
+            final_score = metrics.recall_score(y_test, predicted, average=None)[evaluation_class]
     elif score_function == 'f1':
         if evaluation_class is None:
             final_score = metrics.f1_score(y_test, predicted, average='macro')
         else:
-            final_score = metrics.f1_score(y_test, predicted, average=None)[0]
+            final_score = metrics.f1_score(y_test, predicted, average=None)[evaluation_class]
+    elif score_function == 'log_loss':
+            final_score = metrics.log_loss(y_test, predicted_probabilities)
 
     return final_score
