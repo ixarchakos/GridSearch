@@ -1,16 +1,8 @@
-from src.model.ModelTuningResults import ModelTuningResults
+from src.tools.sampling import k_fold_sample_data_set
+import numpy as np
+x = [[i, i, i] for i in range(1, 11, 1)]
+y = [i for i in range(11, 21, 1)]
+x_train_list, y_train_list, x_test_list, y_test_list = k_fold_sample_data_set(x, np.array(y), 10)
 
-param_grid = {
-              "n_estimators": [i for i in range(200, 601, 50)],
-              "max_features": [i for i in range(1, 3, 1)],
-              "criterion": ["gini", "entropy"]
-              }
-
-people = {'name': "Tom", 'score': 10}
-
-people1 = {'name': "Tom", 'score': 3}
-
-c = ModelTuningResults(param_grid)
-c.add_results(people)
-c.add_results(people1)
-print c.calculate_model_score()
+for j in range(0, 10, 1):
+    print x_test_list[j]

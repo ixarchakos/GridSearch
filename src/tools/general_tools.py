@@ -1,9 +1,9 @@
-import os
-import time
+from os import path, makedirs, getcwd
+from time import strftime
 
 
 def write_to_file(best_model_dict, cut_off_boundary):
-    filename = get_file_path('results', 'grid_search{0}.txt'.format(time.strftime('_%Y-%m-%d_%H.%M.%S')))
+    filename = get_file_path('results', 'grid_search{0}.txt'.format(strftime('_%Y-%m-%d_%H.%M.%S')))
     with open(filename, 'w') as w:
         index = 1
         for k, v in best_model_dict.iteritems():
@@ -26,8 +26,8 @@ def get_file_path(path_from_module, file_name):
     :param file_name: The file we want from the folder.
     :return: The actual path to file
     """
-    if not os.path.exists('results'):
-        os.makedirs('results')
+    if not path.exists('results'):
+        makedirs('results')
 
-    fn = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))).split("/src/")[0]
+    fn = path.realpath(path.join(getcwd(), path.dirname(__file__))).split("/src/")[0]
     return "{0}/{1}/{2}".format(fn, path_from_module, file_name)

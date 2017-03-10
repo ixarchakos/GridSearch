@@ -1,7 +1,7 @@
-from sklearn import metrics
 from collections import OrderedDict
-import warnings
-warnings.filterwarnings("ignore", category=DeprecationWarning)
+from sklearn import metrics
+from warnings import filterwarnings
+filterwarnings("ignore", category=DeprecationWarning)
 
 
 def calculate_metrics(y_test, predicted, predicted_probabilities, score_function, evaluation_class):

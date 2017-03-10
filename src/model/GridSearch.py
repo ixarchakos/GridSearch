@@ -1,10 +1,10 @@
+from collections import OrderedDict
+from itertools import product
 from src.tools.general_tools import write_to_file
 from src.tools.metrics import calculate_metrics
 from src.tools.sampling import random_sample_data_set, k_fold_sample_data_set
 from src.model.ModelTuningResults import ModelTuningResults
-import itertools
-import time
-from collections import OrderedDict
+from time import time
 
 
 class GridSearch:
@@ -27,12 +27,12 @@ class GridSearch:
         # must be true
         unchecked = True
         # number of models
-        num_of_models = len(list(itertools.product(*values_list)))
+        num_of_models = len(list(product(*values_list)))
         # iterate per model
         model_id = 1
         cut_off_boundary = 0
         x_train_list, y_train_list, x_test_list, y_test_list = list(), list(), list(), list()
-        for tuples in list(itertools.product(*values_list)):
+        for tuples in list(product(*values_list)):
             # extract model parameters and cut off boundary
             parameters_dict, cut_off_boundary = self.extract_models_parameters(tuples, key_list)
             model = ModelTuningResults(model_id, parameters_dict, cut_off_boundary, self.n_times, self.k_folds)
@@ -74,13 +74,13 @@ class GridSearch:
             self.best_model_dict.popitem()
 
     def calculate_grid_time(self, x, y, num_of_models, parameters_dict):
-        start = time.time()
+        start = time()
         x_train, y_train, x_test, y_test = random_sample_data_set(x, y, self.k_folds)
         # check param compatibility with the selected model
         self.check_param_compatibility(self.algorithm, parameters_dict, x_train, y_train)
-        end = time.time()
-        print "Number of different models: " + str(num_of_models)
-        print "The procedure needs " + str(((end - start) * num_of_models*self.n_times*self.k_folds) / 60) + " minutes"
+        end = time()
+        print ("Number of different models: " + str(num_of_models))
+        print ("The procedure needs " + str(((end - start) * num_of_models*self.n_times*self.k_folds) / 60) + " minutes")
         return False
 
     def parameters_to_grid(self, thres):
