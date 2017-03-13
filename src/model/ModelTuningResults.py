@@ -37,3 +37,18 @@ class ModelTuningResults:
             if key != "score":
                 total_averages_per_metric[key] = float(total_average) / float(len(self.result_list))
         return total_averages_per_metric
+
+    def calculate_model_stability(self):
+        final_score_list = list()
+        index = 0
+        for i in range(0, self.n_times, 1):
+            final_score = 0
+            for j in range(0, self.n_folds, 1):
+                print self.result_list[index]["score"]
+                final_score += self.result_list[index]["score"]
+                index += 1
+            final_score_list.append(float(final_score)/float(self.n_folds))
+        # Debug prints
+        for val in final_score_list:
+            print "Mean: ", val
+        return 0

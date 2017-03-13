@@ -1,6 +1,6 @@
 from collections import OrderedDict
 from itertools import product
-from src.tools.general_tools import write_to_file
+from src.tools.export_results import write_to_file
 from src.tools.metrics import calculate_metrics
 from src.tools.sampling import random_sample_data_set, k_fold_sample_data_set
 from src.model.ModelTuningResults import ModelTuningResults

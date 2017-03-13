@@ -1,0 +1,144 @@
+Model with rank: 1 
+Scores according to selected criterion: 0.870848246688 
+With parameters: {'n_estimators': 450, 'max_features': 2, 'n_jobs': 6, 'criterion': 'entropy'} 
+And cut off boundary: 0.79 
+
+------ Classification Report ------ 
+Metric accuracy - Value: 0.809665997209 
+Metric avg_precision - Value: 0.771873461065 
+Metric precision_in_class_0 - Value: 0.996095510279 
+Metric precision_in_class_1 - Value: 0.771873461065 
+Metric avg_recall - Value: 0.998955845918 
+Metric recall_in_class_0 - Value: 0.46913601092 
+Metric recall_in_class_1 - Value: 0.998955845918 
+Metric avg_f1 - Value: 0.870848246688 
+Metric f1_in_class_0 - Value: 0.637702381352 
+Metric f1_in_class_1 - Value: 0.870848246688 
+Metric log_loss - Value: 0.253717280332 
+Metric true_positives - Value: 855.777777778 
+Metric false_negatives - Value: 0.888888888889 
+Metric true_negatives - Value: 223.777777778 
+Metric false_positives - Value: 252.888888889 
+------ End of Classification Report ------
+
+--------------------------------------------------
+Model with rank: 2 
+Scores according to selected criterion: 0.869610731016 
+With parameters: {'n_estimators': 200, 'max_features': 2, 'n_jobs': 6, 'criterion': 'entropy'} 
+And cut off boundary: 0.79 
+
+------ Classification Report ------ 
+Metric accuracy - Value: 0.807665372115 
+Metric avg_precision - Value: 0.770113044267 
+Metric precision_in_class_0 - Value: 0.995079820397 
+Metric precision_in_class_1 - Value: 0.770113044267 
+Metric avg_recall - Value: 0.998695616241 
+Metric recall_in_class_0 - Value: 0.464109982143 
+Metric recall_in_class_1 - Value: 0.998695616241 
+Metric avg_f1 - Value: 0.869610731016 
+Metric f1_in_class_0 - Value: 0.632822243293 
+Metric f1_in_class_1 - Value: 0.869610731016 
+Metric log_loss - Value: 0.25415527175 
+Metric true_positives - Value: 855.555555556 
+Metric false_negatives - Value: 1.11111111111 
+Metric true_negatives - Value: 221.333333333 
+Metric false_positives - Value: 255.333333333 
+------ End of Classification Report ------
+
+--------------------------------------------------
+Model with rank: 3 
+Scores according to selected criterion: 0.869067767979 
+With parameters: {'n_estimators': 200, 'max_features': 2, 'n_jobs': 6, 'criterion': 'gini'} 
+And cut off boundary: 0.79 
+
+------ Classification Report ------ 
+Metric accuracy - Value: 0.806666684162 
+Metric avg_precision - Value: 0.76911702319 
+Metric precision_in_class_0 - Value: 0.996400517828 
+Metric precision_in_class_1 - Value: 0.76911702319 
+Metric avg_recall - Value: 0.999094912742 
+Metric recall_in_class_0 - Value: 0.461153164646 
+Metric recall_in_class_1 - Value: 0.999094912742 
+Metric avg_f1 - Value: 0.869067767979 
+Metric f1_in_class_0 - Value: 0.630073744541 
+Metric f1_in_class_1 - Value: 0.869067767979 
+Metric log_loss - Value: 0.258931269846 
+Metric true_positives - Value: 855.888888889 
+Metric false_negatives - Value: 0.777777777778 
+Metric true_negatives - Value: 219.666666667 
+Metric false_positives - Value: 257.0 
+------ End of Classification Report ------
+
+--------------------------------------------------
+Model with rank: 4 
+Scores according to selected criterion: 0.867983799 
+With parameters: {'n_estimators': 450, 'max_features': 2, 'n_jobs': 6, 'criterion': 'gini'} 
+And cut off boundary: 0.79 
+
+------ Classification Report ------ 
+Metric accuracy - Value: 0.804833329772 
+Metric avg_precision - Value: 0.767627161689 
+Metric precision_in_class_0 - Value: 0.99435005784 
+Metric precision_in_class_1 - Value: 0.767627161689 
+Metric avg_recall - Value: 0.998579598262 
+Metric recall_in_class_0 - Value: 0.456576184158 
+Metric recall_in_class_1 - Value: 0.998579598262 
+Metric avg_f1 - Value: 0.867983799 
+Metric f1_in_class_0 - Value: 0.625585150424 
+Metric f1_in_class_1 - Value: 0.867983799 
+Metric log_loss - Value: 0.258691984127 
+Metric true_positives - Value: 855.444444444 
+Metric false_negatives - Value: 1.22222222222 
+Metric true_negatives - Value: 217.666666667 
+Metric false_positives - Value: 259.0 
+------ End of Classification Report ------
+
+--------------------------------------------------
+Model with rank: 5 
+Scores according to selected criterion: 0.867606315503 
+With parameters: {'n_estimators': 200, 'max_features': 2, 'n_jobs': 6, 'criterion': 'entropy'} 
+And cut off boundary: 0.79 
+
+------ Classification Report ------ 
+Metric accuracy - Value: 0.80425328721 
+Metric avg_precision - Value: 0.766863549473 
+Metric precision_in_class_0 - Value: 0.996399802072 
+Metric precision_in_class_1 - Value: 0.766863549473 
+Metric avg_recall - Value: 0.999095769371 
+Metric recall_in_class_0 - Value: 0.454457143271 
+Metric recall_in_class_1 - Value: 0.999095769371 
+Metric avg_f1 - Value: 0.867606315503 
+Metric f1_in_class_0 - Value: 0.623793787041 
+Metric f1_in_class_1 - Value: 0.867606315503 
+Metric log_loss - Value: 0.256900922707 
+Metric true_positives - Value: 855.888888889 
+Metric false_negatives - Value: 0.777777777778 
+Metric true_negatives - Value: 216.444444444 
+Metric false_positives - Value: 260.222222222 
+------ End of Classification Report ------
+
+--------------------------------------------------
+Model with rank: 6 
+Scores according to selected criterion: 0.867271243165 
+With parameters: {'n_estimators': 450, 'max_features': 2, 'n_jobs': 6, 'criterion': 'entropy'} 
+And cut off boundary: 0.79 
+
+------ Classification Report ------ 
+Metric accuracy - Value: 0.803498163396 
+Metric avg_precision - Value: 0.766248081357 
+Metric precision_in_class_0 - Value: 0.996239636542 
+Metric precision_in_class_1 - Value: 0.766248081357 
+Metric avg_recall - Value: 0.999090679979 
+Metric recall_in_class_0 - Value: 0.451985368349 
+Metric recall_in_class_1 - Value: 0.999090679979 
+Metric avg_f1 - Value: 0.867271243165 
+Metric f1_in_class_0 - Value: 0.621344135565 
+Metric f1_in_class_1 - Value: 0.867271243165 
+Metric log_loss - Value: 0.253585478181 
+Metric true_positives - Value: 855.888888889 
+Metric false_negatives - Value: 0.777777777778 
+Metric true_negatives - Value: 215.444444444 
+Metric false_positives - Value: 261.222222222 
+------ End of Classification Report ------
+
+--------------------------------------------------

@@ -18,5 +18,5 @@ x = df.values[:4000, :-1]
 y = df.values[:4000, -1]
 
 # start of grid search
-GridSearch(RandomForestClassifier(), param_grid, 'f1', n_times=1, k_folds=3, n_top=6, bootstrap=True, evaluation_class=None).fit(x, y, threshold)
+GridSearch(RandomForestClassifier(), param_grid, 'f1', n_times=3, k_folds=6, n_top=6, bootstrap=False, evaluation_class=None).fit(x, y, threshold)
 
