@@ -1,13 +1,17 @@
+from operator import mod
 from os import path, makedirs, getcwd
+from src.plots.stability import create_box_plots
 from time import strftime
 
 
 def write_to_file(best_model_dict, cut_off_boundary):
     filename = get_file_path('results', 'grid_search{0}.txt'.format(strftime('_%Y-%m-%d_%H.%M.%S')))
     with open(filename, 'w') as w:
-        index = 1
+        index = 0
+        data = list()
+        iteration = 0
         for k, v in best_model_dict.iteritems():
-            w.write('Model with rank: {0} \n'.format(index))
+            w.write('Model with rank: {0} \n'.format(str(index+1)))
             w.write('Scores according to selected criterion: {0} \n'.format(str(v[0])))
             w.write('With parameters: {0} \n'.format(v[1].get_params()))
             w.write('And cut off boundary: {0} \n'.format(cut_off_boundary))
@@ -22,7 +26,14 @@ def write_to_file(best_model_dict, cut_off_boundary):
                 w.write('Metric {0} - Value: {1} \n'.format(key, str(value)))
             w.write('------ End of Classification Report ------\n\n')
             w.write(('-' * 50) + '\n')
+            data.append([stability_dict["min_value"], stability_dict["first_quartile"], stability_dict["second_quartile"],
+                         stability_dict["third_quartile"], stability_dict["max_value"]])
             index += 1
+            print index
+            if mod(index, 5) == 0 and index != 0:
+                create_box_plots(data, iteration)
+                iteration += 1
+                del data[:]
 
 
 def get_file_path(path_from_module, file_name):
