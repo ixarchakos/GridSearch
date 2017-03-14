@@ -10,7 +10,7 @@ def min_value(lst):
 
 
 def mean_value(lst):
-    return float(reduce(lambda x, y: x + y, lst)) / float(len(l))
+    return float(reduce(lambda x, y: x + y, lst)) / float(len(lst))
 
 
 def median_value(lst):
@@ -18,12 +18,12 @@ def median_value(lst):
 
 
 def first_quartile(lst):
-    print percentile(lst, 25)
+    return percentile(lst, 25)
 
 
 def second_quartile(lst):
-    print percentile(lst, 50)
+    return percentile(lst, 50)
 
 
 def third_quartile(lst):
-    print percentile(lst, 75)
+    return percentile(lst, 75)

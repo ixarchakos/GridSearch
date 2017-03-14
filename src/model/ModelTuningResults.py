@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from src.tools.general_tools import first_quartile, second_quartile, third_quartile, mean_value, min_value, max_value
 
 
 class ModelTuningResults:
@@ -44,11 +45,13 @@ class ModelTuningResults:
         for i in range(0, self.n_times, 1):
             final_score = 0
             for j in range(0, self.n_folds, 1):
-                print self.result_list[index]["score"]
                 final_score += self.result_list[index]["score"]
                 index += 1
             final_score_list.append(float(final_score)/float(self.n_folds))
-        # Debug prints
-        for val in final_score_list:
-            print "Mean: ", val
-        return 0
+
+        return {'first_quartile': first_quartile(final_score_list),
+                'second_quartile': second_quartile(final_score_list),
+                'third_quartile': third_quartile(final_score_list),
+                'mean_value': mean_value(final_score_list),
+                'min_value': min_value(final_score_list),
+                'max_value': max_value(final_score_list)}

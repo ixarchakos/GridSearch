@@ -12,6 +12,12 @@ def write_to_file(best_model_dict, cut_off_boundary):
             w.write('With parameters: {0} \n'.format(v[1].get_params()))
             w.write('And cut off boundary: {0} \n'.format(cut_off_boundary))
             w.write('\n------ Classification Report ------ \n')
+            stability_dict = v[1].calculate_model_stability()
+            w.write('Score function - Max Value: {0} \n'.format(stability_dict["max_value"]))
+            w.write('Score function - Min Value: {0} \n'.format(stability_dict["min_value"]))
+            w.write('Score function - 1st quartile: {0} \n'.format(stability_dict["first_quartile"]))
+            w.write('Score function - 2nd quartile: {0} \n'.format(stability_dict["second_quartile"]))
+            w.write('Score function - 3rd quartile: {0} \n'.format(stability_dict["third_quartile"]))
             for key, value in v[1].calculate_averages_per_metric().iteritems():
                 w.write('Metric {0} - Value: {1} \n'.format(key, str(value)))
             w.write('------ End of Classification Report ------\n\n')
