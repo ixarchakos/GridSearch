@@ -3,7 +3,17 @@ from sklearn.cross_validation import KFold
 
 
 def random_sample_data_set(x, y, folds):
-    # random shuffle
+    """
+    This function uses a bootstrap approach as a re-sampling strategy
+    :param x: numpy array
+        - Includes the train data
+    :param y: numpy array
+        - Includes the actual value of each data sample
+    :param folds: integer
+        - The number of folds that splits the data set
+    :return: list of lists
+        - The training and test samples extracted from the training set
+    """
     data = list()
     for i, value in enumerate(x.tolist()):
         value.extend([y.tolist()[i]])
@@ -18,7 +28,17 @@ def random_sample_data_set(x, y, folds):
 
 
 def k_fold_sample_data_set(x, y, folds):
-    # k-fold grid search
+    """
+    This function uses a k-fold approach as a re-sampling strategy
+    :param x: numpy array
+        - Includes the train data
+    :param y: numpy array
+        - Includes the actual value of each data sample
+    :param folds: integer
+        - The number of folds that splits the data set
+    :return: list of lists
+        - The training and test samples extracted from the training set
+    """
     x_train_list, y_train_list, x_test_list, y_test_list = list(), list(), list(), list()
     try:
         kf = KFold(x.shape[0], n_folds=folds, shuffle=True)

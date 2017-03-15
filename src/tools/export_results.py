@@ -6,6 +6,14 @@ from time import strftime
 
 
 def write_to_file(best_model_dict, cut_off_boundary):
+    """
+    This method exports to file the results of the classification report
+    :param best_model_dict: dict
+        - A dictionary with the Top-K models
+    :param cut_off_boundary: float
+        - The cut-off boundary of the machine learning algorithm
+    :return:
+    """
     filename = get_file_path('results', 'grid_search{0}.txt'.format(strftime('_%Y-%m-%d_%H.%M.%S')))
     with open('best_models.pickle', 'wb') as f:
         dump(best_model_dict, f, protocol=HIGHEST_PROTOCOL)
@@ -41,7 +49,7 @@ def write_to_file(best_model_dict, cut_off_boundary):
 
 def get_file_path(path_from_module, file_name):
     """
-    We use this method to find the files that in many cases we need but are not visible.
+    This method finds the files that in many cases we need but are not visible.
     :param path_from_module: The path from the central repo to the folder we want.
     :param file_name: The file we want from the folder.
     :return: The actual path to file

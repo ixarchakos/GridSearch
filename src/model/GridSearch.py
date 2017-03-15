@@ -23,6 +23,15 @@ class GridSearch:
         self.evaluation_class = evaluation_class
 
     def fit(self, x, y, thres):
+        """
+        This function runs the main part of the Grid Search
+        :param x: numpy array
+            - Includes the train data
+        :param y: numpy array
+            - Includes the actual value of each data sample
+        :param thres: float
+            - The cut-off boundary of the machine learning algorithm
+        """
         values_list, key_list = self.parameters_to_grid(thres)
         # must be true
         unchecked = True
@@ -65,6 +74,11 @@ class GridSearch:
         write_to_file(self.best_model_dict, cut_off_boundary)
 
     def calculate_best_models(self, new_model):
+        """
+        This function keeps and updates the list with the best models according to the selected scoring function
+        :param new_model: ModelTuningResults
+            - A newly created model from the Grid search
+        """
         self.best_model_dict[new_model.get_model_id()] = [new_model.calculate_model_score(), new_model]
         temp = sorted(self.best_model_dict.items(), key=lambda x: x[1], reverse=True)
         self.best_model_dict.clear()
@@ -74,6 +88,19 @@ class GridSearch:
             self.best_model_dict.popitem()
 
     def calculate_grid_time(self, x, y, num_of_models, parameters_dict):
+        """
+        Makes an approximation of the time that is needed to complete the whole Grid Search procedure
+        :param x: numpy array
+            - Includes the train data
+        :param y: numpy array
+            - Includes the actual value of each data sample
+        :param num_of_models: integer
+            - The number of models that selected for evaluation
+        :param parameters_dict: dict
+            - The parameters of a model
+        :return: boolean
+            - Always false in order to executed only once
+        """
         start = time()
         x_train, y_train, x_test, y_test = random_sample_data_set(x, y, self.k_folds)
         # check param compatibility with the selected model
@@ -84,6 +111,12 @@ class GridSearch:
         return False
 
     def parameters_to_grid(self, thres):
+        """
+
+        :param thres: float
+            - The cut-off boundary of the machine learning algorithm
+        :return:
+        """
         values_list, key_list = list(), list()
         for key, value_list in self.param_grid.iteritems():
             key_list.append(key)
@@ -94,6 +127,12 @@ class GridSearch:
 
     @staticmethod
     def extract_models_parameters(tuples, key_list):
+        """
+
+        :param tuples:
+        :param key_list:
+        :return:
+        """
         parameters_dict = dict()
         for i, t in enumerate(tuples):
             parameters_dict[key_list[i]] = t
@@ -103,6 +142,18 @@ class GridSearch:
 
     @staticmethod
     def check_param_compatibility(algorithm, parameters_dict, x_train, y_train):
+        """
+        This function checks if a random set of parameters are acceptable from the selected ML algorithm
+        :param algorithm: sklearn model
+            - The selected machine learning algorithm
+        :param parameters_dict: dict
+            - The parameters of a model
+        :param x_train: numpy array
+            - Includes the train data
+        :param y_train: numpy array
+            - Includes the actual value of each data sample
+        :return:
+        """
         try:
             algorithm.set_params(**parameters_dict).fit(x_train, y_train)
         except Exception as e:
