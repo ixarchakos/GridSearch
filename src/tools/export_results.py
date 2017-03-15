@@ -1,11 +1,14 @@
 from operator import mod
 from os import path, makedirs, getcwd
+from pickle import dump, HIGHEST_PROTOCOL
 from src.plots.stability import create_box_plots
 from time import strftime
 
 
 def write_to_file(best_model_dict, cut_off_boundary):
     filename = get_file_path('results', 'grid_search{0}.txt'.format(strftime('_%Y-%m-%d_%H.%M.%S')))
+    with open('best_models.pickle', 'wb') as f:
+        dump(best_model_dict, f, protocol=HIGHEST_PROTOCOL)
     with open(filename, 'w') as w:
         index = 0
         data = list()
@@ -31,7 +34,7 @@ def write_to_file(best_model_dict, cut_off_boundary):
             index += 1
             print index
             if mod(index, 5) == 0 and index != 0:
-                create_box_plots(data, iteration)
+                create_box_plots(data, iteration, False)
                 iteration += 1
                 del data[:]
 
