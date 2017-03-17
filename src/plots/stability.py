@@ -1,4 +1,6 @@
+from os import path, makedirs, getcwd
 from pylab import show, savefig, xlim, figure, hold, ylim, boxplot, setp, axes
+from time import strftime
 import numpy as np
 
 
@@ -33,8 +35,20 @@ def create_box_plots(data, iteration, save_image=True):
     axes().set_xticks(positions)
     axes().set_yticks([float(i) for i in np.arange(min(flatten), max(flatten)+(max(flatten)-min(flatten))/15, (max(flatten)-min(flatten))/15)])
     if save_image:
-        savefig('box_plot' + str(iteration) + '.png')
+        box_plots = get_file_path('plots', 'box_plot_{0}_{1}.png'.format(str(iteration), strftime('_%Y-%m-%d_%H.%M.%S')))
+        savefig(box_plots)
     show()
 
 
+def get_file_path(path_from_module, file_name):
+    """
+    This method finds the files that in many cases we need but are not visible.
+    :param path_from_module: The path from the central repo to the folder we want.
+    :param file_name: The file we want from the folder.
+    :return: The actual path to file
+    """
+    if not path.exists(path_from_module):
+        makedirs(path_from_module)
 
+    fn = path.realpath(path.join(getcwd(), path.dirname(__file__))).split("/src/")[0]
+    return "{0}/{1}/{2}".format(fn, path_from_module, file_name)

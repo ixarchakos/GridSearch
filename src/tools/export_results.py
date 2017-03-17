@@ -5,17 +5,20 @@ from src.plots.stability import create_box_plots
 from time import strftime
 
 
-def write_to_file(best_model_dict, cut_off_boundary):
+def write_to_file(best_model_dict, cut_off_boundary, visualization):
     """
     This method exports to file the results of the classification report
     :param best_model_dict: dict
         - A dictionary with the Top-K models
     :param cut_off_boundary: float
         - The cut-off boundary of the machine learning algorithm
+    :param visualization: boolean
+        - It is True if the user selected to export results in box plots
     :return:
     """
     filename = get_file_path('results', 'grid_search{0}.txt'.format(strftime('_%Y-%m-%d_%H.%M.%S')))
-    with open('best_models.pickle', 'wb') as f:
+    pickles = get_file_path('pickles', 'best_models{0}.pickle'.format(strftime('_%Y-%m-%d_%H.%M.%S')))
+    with open(pickles, 'wb') as f:
         dump(best_model_dict, f, protocol=HIGHEST_PROTOCOL)
     with open(filename, 'w') as w:
         index = 0
@@ -37,11 +40,11 @@ def write_to_file(best_model_dict, cut_off_boundary):
                 w.write('Metric {0} - Value: {1} \n'.format(key, str(value)))
             w.write('------ End of Classification Report ------\n\n')
             w.write(('-' * 50) + '\n')
-            data.append([stability_dict["min_value"], stability_dict["first_quartile"], stability_dict["second_quartile"],
-                         stability_dict["third_quartile"], stability_dict["max_value"]])
+            if visualization:
+                data.append([stability_dict["min_value"], stability_dict["first_quartile"], stability_dict["second_quartile"],
+                             stability_dict["third_quartile"], stability_dict["max_value"]])
             index += 1
-            print index
-            if mod(index, 5) == 0 and index != 0:
+            if mod(index, 5) == 0 and index != 0 and visualization:
                 create_box_plots(data, iteration, False)
                 iteration += 1
                 del data[:]
@@ -54,8 +57,8 @@ def get_file_path(path_from_module, file_name):
     :param file_name: The file we want from the folder.
     :return: The actual path to file
     """
-    if not path.exists('results'):
-        makedirs('results')
+    if not path.exists(path_from_module):
+        makedirs(path_from_module)
 
     fn = path.realpath(path.join(getcwd(), path.dirname(__file__))).split("/src/")[0]
     return "{0}/{1}/{2}".format(fn, path_from_module, file_name)

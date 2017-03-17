@@ -9,8 +9,8 @@ from time import time
 
 class GridSearch:
 
-    def __init__(self, algorithm, param_grid, score_function,
-                 n_times=5, k_folds=10, n_top=50, bootstrap=True, evaluation_class=None):
+    def __init__(self, algorithm, param_grid, score_function, n_times=5, k_folds=10,
+                 n_top=50, bootstrap=True, evaluation_class=None, visualization=False):
 
         self.algorithm = algorithm
         self.param_grid = param_grid
@@ -21,6 +21,7 @@ class GridSearch:
         self.n_top = n_top
         self.best_model_dict = OrderedDict()
         self.evaluation_class = evaluation_class
+        self.visualization = visualization
 
     def fit(self, x, y, thres):
         """
@@ -71,7 +72,7 @@ class GridSearch:
                     model.add_results(calculate_metrics(y_test, predicted_labels, predicted_probabilities,
                                                         self.score_function, self.evaluation_class))
             self.calculate_best_models(model)
-        write_to_file(self.best_model_dict, cut_off_boundary)
+        write_to_file(self.best_model_dict, cut_off_boundary, self.visualization)
 
     def calculate_best_models(self, new_model):
         """

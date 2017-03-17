@@ -3,4 +3,4 @@ __pycache__/
 *.py[cod]
 *$py.class
 .idea/*
-src/tests/feature_matrix_train.csv
+src/tests/*
